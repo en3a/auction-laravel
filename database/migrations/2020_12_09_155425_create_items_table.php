@@ -13,12 +13,14 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table)
+        {
             $table->id();
             $table->string('name');
             $table->text('description');
             $table->integer('minimal_bid')->default(0);
             $table->integer('total_bids')->default(0);
+            $table->string('thumbnail');
             $table->dateTime('expires_at');
             $table->timestamps();
         });
