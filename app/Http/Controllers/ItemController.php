@@ -15,6 +15,6 @@ class ItemController extends Controller
     {
         $items = Item::all();
 
-        return view('dashboard', compact('items'));
+        return view('home', compact('items'));
     }
 }
