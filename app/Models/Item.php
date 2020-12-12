@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Item extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    public function bids(): HasMany
+    {
+        return $this->hasMany(BidHistory::class, 'item_id');
+    }
 }

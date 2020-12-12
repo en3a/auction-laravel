@@ -13,7 +13,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+        $items = Item::with('bids')->get();
 
         return view('home', compact('items'));
     }
