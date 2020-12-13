@@ -15,7 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table)
         {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->text('description');
             $table->integer('minimal_bid')->default(0);

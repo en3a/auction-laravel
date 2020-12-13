@@ -13,10 +13,11 @@ class CreateBidHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bid_histories', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('user_id');
+        Schema::create('bid_histories', function (Blueprint $table)
+        {
+            $table->uuid('id')->primary();
+            $table->string('item_id');
+            $table->string('user_id');
             $table->timestamps();
         });
     }

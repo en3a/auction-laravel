@@ -25,7 +25,7 @@
                                                 <h5 class="card-title">{{ $item->name }}</h5>
                                                 <span>Min Bid: {{ $item->minimal_bid }}</span><br>
                                                 <span>Bid Number: {{ $item->bids()->count() }}</span><br>
-                                                <a href="#" class="btn btn-primary">Bid Now</a>
+                                                <a href="{{ route('show', $item) }}" class="btn btn-primary">Bid Now</a>
                                             </div>
                                         </div>
                                     </div>
