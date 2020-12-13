@@ -34,6 +34,6 @@ class ItemController extends Controller
 
     public function show(Item $item)
     {
-        // items details page
+        return view('details', compact('item'));
     }
 }
