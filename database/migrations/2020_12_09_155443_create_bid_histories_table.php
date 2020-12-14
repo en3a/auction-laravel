@@ -18,6 +18,7 @@ class CreateBidHistoriesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('item_id');
             $table->string('user_id');
+            $table->integer('bid_amount');
             $table->timestamps();
         });
     }

@@ -32,6 +32,10 @@
                                 @endforeach
                             @endif
                         </div>
+
+                        <hr>
+
+                        {{ $items->links() }}
                     </div>
                 </div>
             </div>
