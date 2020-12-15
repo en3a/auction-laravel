@@ -3,28 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Repository\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+use function auth;
+use function dd;
+
 class SettingController extends Controller
 {
+    public $userRepository;
+
+    /**
+     * SettingController constructor.
+     *
+     * @param  UserRepository  $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function index()
     {
-        $autoBid = User::find(auth()->user()->id)['auto_bid'];
-        return view('settings', compact('autoBid'));
+        return view('settings');
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
+     *
      * @return RedirectResponse
      */
     public function save(Request $request): RedirectResponse
     {
-        $autoBid = $request->input('auto_bid');
+        $data = [
+            'auto_bid' => $request->input('auto_bid')
+        ];
 
-        $user = User::find(auth()->user()->id);
-        $user->auto_bid = $autoBid;
-        $user->save();
+        $this->userRepository->update(auth()->user(), $data);
 
         return redirect()->back()->with('success', 'Settings Updated');
 

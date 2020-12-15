@@ -10,7 +10,7 @@
                         <form action="{{ route('saveSettings') }}" method="POST">
                             @csrf
                             @method('PUT')
-                            @if($autoBid == null)
+                            @if(auth()->user()->auto_bid == null)
                                 <div class="form-group">
                                     <label for="enable">
                                         Do you want to enable AutoBid ? <br>
@@ -29,12 +29,12 @@
                             <div class="form-group autoBidField">
                                 <label for="auto_bid">Amount</label>
                                 <input
-                                    type="number"
-                                    class="form-control"
-                                    id="auto_bid"
-                                    name="auto_bid"
-                                    {{ $autoBid == null ? 'disabled' : '' }}"
-                                    value="{{ $autoBid }}">
+                                        type="number"
+                                        class="form-control"
+                                        id="auto_bid"
+                                        name="auto_bid"
+                                {{ auth()->user()->auto_bid == null ? 'disabled' : '' }}"
+                                value="{{ auth()->user()->auto_bid }}">
                                 <hr>
                                 <button class="btn btn-primary" type="submit">Save Changes</button>
                             </div>
