@@ -36,11 +36,7 @@ class SettingController extends Controller
      */
     public function save(Request $request): RedirectResponse
     {
-        $data = [
-            'auto_bid' => $request->input('auto_bid')
-        ];
-
-        $this->userRepository->update(auth()->user(), $data);
+        $this->userRepository->update(auth()->user(), ['auto_bid' => $request->input('auto_bid')]);
 
         return redirect()->back()->with('success', 'Settings Updated');
 
