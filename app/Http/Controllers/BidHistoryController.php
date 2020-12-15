@@ -34,6 +34,10 @@ class BidHistoryController extends Controller
             return redirect()->back()->with('error', 'Please submit at least minimal bid amount !');
         }
 
+        if ((int) $request->input('bid') <= (int) $item->bids()->latest()->first()->bid_amount) {
+            return redirect()->back()->with('error', 'You bid should be bigger than the last one!');
+        }
+
         $bidData = [
             'item_id'    => $item->id,
             'user_id'    => auth()->user()->id,
