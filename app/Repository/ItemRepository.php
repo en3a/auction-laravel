@@ -30,9 +30,9 @@ class ItemRepository extends BaseRepository
      * @param  Request  $request
      * @param  int  $paginateNumber
      *
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator|\Illuminate\Http\RedirectResponse|null
      */
-    public function getPaginatedList(Request $request, $paginateNumber = 12): LengthAwarePaginator
+    public function getPaginatedList(Request $request, $paginateNumber = 12)
     {
         try {
             $items = $this->model::query();
@@ -52,23 +52,23 @@ class ItemRepository extends BaseRepository
 
             return $items->paginate(12);
         } catch (Exception $exception) {
-            return redirect()->back()->withFlashDanger(__('Problem getting paginated data'));
+            return redirect()->back()->with('error', __('Problem getting paginated data'));
         }
     }
 
     /**
      * @param  Item  $item
      *
-     * @return Collection
+     * @return Collection|\Illuminate\Http\RedirectResponse
      */
-    public function getBids(Item $item): Collection
+    public function getBids(Item $item)
     {
         try {
             return $item->bids()
                         ->orderBy('created_at', 'desc')
                         ->get();
         } catch (Exception $exception) {
-            return redirect()->back()->withFlashDanger(__('Cannot get bids'));
+            return redirect()->back()->with('error', __('Cannot get bids'));
         }
     }
 }
