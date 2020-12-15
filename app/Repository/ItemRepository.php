@@ -4,10 +4,15 @@
 namespace App\Repository;
 
 
+use App\Models\BidHistory;
 use App\Models\Item;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+
+use function __;
+use function redirect;
 
 class ItemRepository extends BaseRepository
 {
@@ -48,6 +53,22 @@ class ItemRepository extends BaseRepository
             return $items->paginate(12);
         } catch (Exception $exception) {
             return redirect()->back()->withFlashDanger(__('Problem getting paginated data'));
+        }
+    }
+
+    /**
+     * @param  Item  $item
+     *
+     * @return Collection
+     */
+    public function getBids(Item $item): Collection
+    {
+        try {
+            return $item->bids()
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        } catch (Exception $exception) {
+            return redirect()->back()->withFlashDanger(__('Cannot get bids'));
         }
     }
 }

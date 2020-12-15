@@ -23,7 +23,7 @@
 
                             <div class="cover__desc">
                                 <h5 class="card-title item-title">{{ $item->name }}</h5>
-                                <h4>{{ @$item->description }}</h4>
+                                <h4>{{ $item->description }}</h4>
                                 <div class="dates d-flex justify-content-end">
                                     Start - {{ date('d/m/Y H:i', strtotime($item->created_at)) }} <br>
                                     Ends - {{ date('d/m/Y H:i', strtotime($item->expires_at)) }}
@@ -38,7 +38,7 @@
 
         <div class="row bg-white pt-4 pl-4 pr-4 pb-4" style="margin-top: 150px">
             <div class="col-lg-12">
-                @if(!isset($lastBidUserId) || $lastBidUserId !== auth()->user()->id)
+                @if(!lastBidder($item))
                     <div class="form-wrapper">
                         <form action="{{ route('submitBid', $item->id) }}" method="POST">
                             @csrf
@@ -67,7 +67,7 @@
                     <th>Date/Time</th>
                     </thead>
                     <tbody>
-                    @forelse($item->bids()->orderBy('created_at', 'desc')->get() as $counter => $bid)
+                    @forelse($bids as $counter => $bid)
                         <tr>
                             <td>{{ ++$counter }}</td>
                             <td>{{ $bid->user->name }}</td>

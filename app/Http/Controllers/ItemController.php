@@ -35,8 +35,8 @@ class ItemController extends Controller
 
     public function show(Item $item)
     {
-        $lastBidUserId = @$item->bids()->latest()->first('user_id')['user_id'];
+        $bids = $this->itemRepository->getBids($item);
 
-        return view('details', compact('item', 'lastBidUserId'));
+        return view('details', compact('item', 'bids'));
     }
 }
