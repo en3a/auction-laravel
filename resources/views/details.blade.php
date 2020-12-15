@@ -51,6 +51,12 @@
                                 <button class="btn btn-primary btn-smaller">Submit Bid</button>
                             </div>
                         </form>
+                        <form action="{{ route('autobid', $item->id) }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-smaller">{{ $item->autoBid()->where('user_id', auth()->user()->id)->count() > 0 ? 'Disable AutoBid' : 'Enable AutoBid' }}</button>
+                            </div>
+                        </form>
                     </div>
                 @else
                     <p class="text-danger">

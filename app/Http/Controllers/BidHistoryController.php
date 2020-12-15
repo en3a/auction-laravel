@@ -86,7 +86,7 @@ class BidHistoryController extends Controller
      */
     private function bidShouldBeGreaterThanTheLast(Item $item, Request $request)
     {
-        if ((int) $request->input('bid') <= (int) $item->bids()->latest()->first()->bid_amount) {
+        if ($item->bids()->count() > 0 && (int) $request->input('bid') <= @(int) $item->bids()->latest()->first()->bid_amount) {
             throw new GeneralException('You bid should be bigger than the last one!');
         }
     }

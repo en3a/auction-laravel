@@ -34,11 +34,10 @@ class SettingController extends Controller
      *
      * @return RedirectResponse
      */
-    public function save(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $this->userRepository->update(auth()->user(), ['auto_bid' => $request->input('auto_bid')]);
 
         return redirect()->back()->with('success', 'Settings Updated');
-
     }
 }

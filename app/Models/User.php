@@ -48,4 +48,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(BidHistory::class, 'user_id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function autoBid(): HasMany
+    {
+        return $this->hasMany(BidBot::class, 'user_id');
+    }
 }

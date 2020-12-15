@@ -16,13 +16,29 @@ class Item extends Model
 
     protected $guarded = [];
 
+    /**
+     * @param $query
+     *
+     * @return mixed
+     */
     public function scopeActive($query)
     {
         return $query->where('active', self::ACTIVE);
     }
 
+    /**
+     * @return HasMany
+     */
     public function bids(): HasMany
     {
         return $this->hasMany(BidHistory::class, 'item_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function autoBid(): HasMany
+    {
+        return $this->hasMany(BidBot::class, 'item_id');
     }
 }
