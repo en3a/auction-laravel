@@ -25,9 +25,22 @@ class ItemController extends Controller
         $this->itemRepository = $itemRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $items = $this->itemRepository->with('bids')->paginate(10);
+        $items = Item::query();
+        $items = $items->with('bids');
+
+        if ($request->has('search_term')) {
+            $items->where('name', 'LIKE', '%'.$request->input('search_term').'%');
+        }
+
+        if ($request->has('order')) {
+            $items->orderBy('minimal_bid', $request->input('order'));
+        } else {
+            $items->orderBy('minimal_bid', 'ASC');
+        }
+
+        $items = $items->paginate(12);
 
         return view('home', compact('items'));
     }

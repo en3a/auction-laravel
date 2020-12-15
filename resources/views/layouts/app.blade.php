@@ -21,10 +21,11 @@
 </head>
 <body>
     <div id="app">
+        @if(auth()->user())
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('images/logo.png') }}" alt="logo" width="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -32,9 +33,15 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
+                    <div class="search-wrapper w-100 pl-5 pr-5">
+                        <form action="{{ route('dashboard') }}" method="GET" id="search-form">
+                            <input type="hidden" name="search_term" id="search-term" value="">
+                            @if(isset($_GET['order']))
+                                <input type="hidden" name="order" value="<?= $_GET['order'] ?>">
+                            @endif
+                            <input type="text" class="form-control search-input" id="search-input" name="search" placeholder="Search items ...">
+                        </form>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -72,11 +79,27 @@
                 </div>
             </div>
         </nav>
+        @endif
 
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    <script>
+        const searchInput = document.querySelector('#search-input');
+        const searchTerm = document.querySelector('#search-term');
+        const searchForm = document.querySelector('#search-form');
+
+        searchInput.addEventListener('keydown', (e) => {
+            searchTerm.value = searchInput.value;
+
+            if (e.keyCode === 13) {
+                if (searchTerm.value.length > 1) {
+                    searchForm.submit();
+                }
+            }
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>

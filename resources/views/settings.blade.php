@@ -5,24 +5,20 @@
         @include('includes.messages')
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        Autobid Options
-                    </div>
+                <div class="card bg-white" style="box-shadow: none; border-radius: 0;">
                     <div class="card-body">
                         <form action="{{ route('saveSettings') }}" method="POST">
                             @csrf
                             @method('PUT')
                             @if($autoBid == null)
-                                Seems like autobid is disabled... Do you want to enable ?
-                                <hr>
                                 <div class="form-group">
                                     <label for="enable">
+                                        Do you want to enable AutoBid ? <br>
                                         <input type="checkbox" id="enable" name="enable_disable"> Yes
                                     </label>
                                 </div>
                             @else
-                                Seems like autobid is enabled... Do you want to disable or update ?
+                                Do you want to disable AutoBid ?
                                 <hr>
                                 <div class="form-group">
                                     <label for="disable">
@@ -31,7 +27,7 @@
                                 </div>
                             @endif
                             <div class="form-group autoBidField">
-                                <label for="auto_bid">AutoBid Amount</label>
+                                <label for="auto_bid">Amount</label>
                                 <input
                                     type="number"
                                     class="form-control"
