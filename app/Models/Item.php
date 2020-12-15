@@ -11,7 +11,15 @@ class Item extends Model
 {
     use HasFactory, Uuids;
 
+    const ACTIVE = 1;
+    const INACTIVE = 0;
+
     protected $guarded = [];
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', self::ACTIVE);
+    }
 
     public function bids(): HasMany
     {

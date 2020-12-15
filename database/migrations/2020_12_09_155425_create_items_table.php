@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Item;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->integer('minimal_bid')->default(0);
             $table->integer('total_bids')->default(0);
             $table->string('thumbnail');
+            $table->boolean('active')->default(Item::ACTIVE);
             $table->dateTime('expires_at');
             $table->timestamps();
         });
