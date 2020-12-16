@@ -40,23 +40,23 @@
             <div class="col-lg-12">
                 @if(!lastBidder($item))
                     <div class="form-wrapper">
-                        <form action="{{ route('submitBid', $item->id) }}" method="POST">
+                        <form id="bidForm" action="{{ route('submitBid', $item->id) }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="bid">
-                                    Enter your bid amount <br>
-                                    <small>Minimal bid amount is {{ $item->minimal_bid }}</small>
+                                    <b class="d-block mb-0">Enter your bid amount</b>
+                                    <small class="d-block text-muted mt-0 mb-3">Minimal bid amount is {{ $item->minimal_bid }}</small>
                                     <input type="number" class="form-control" id="bid" name="bid">
                                 </label>
-                                <button class="btn btn-primary btn-smaller">Submit Bid</button>
                             </div>
                         </form>
-                        <form action="{{ route('autobid', $item->id) }}" method="POST">
+                        <form id="autoBidForm" action="{{ route('autobid', $item->id) }}" method="POST">
                             @csrf
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-smaller">{{ $item->autoBid()->where('user_id', auth()->user()->id)->count() > 0 ? 'Disable AutoBid' : 'Enable AutoBid' }}</button>
-                            </div>
                         </form>
+                        <div class="d-flex mb-4">
+                            <button class="btn btn-primary btn-smaller mr-2" onclick="document.querySelector('#bidForm').submit()">Submit Bid</button>
+                            <button class="btn btn-primary btn-smaller" onclick="document.querySelector('#autoBidForm').submit()">{{ $item->autoBid()->where('user_id', auth()->user()->id)->count() > 0 ? 'Disable AutoBid' : 'Enable AutoBid' }}</button>
+                        </div>
                     </div>
                 @else
                     <p class="text-danger">

@@ -44,7 +44,7 @@ input[type="number"] {
     border-radius: 0 !important;
     background-color: $primary !important;
     border-color: $primary !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-weight: 500;
     padding: 11px;
     letter-spacing: 1px;
@@ -195,5 +195,10 @@ input.form-control.search-input {
                 font-size: 22px;
             }
         }
+    }
+
+    .search-wrapper.w-100.pl-5.pr-5 {
+        padding: 0 !important;
+        margin: 10px 0;
     }
 }
