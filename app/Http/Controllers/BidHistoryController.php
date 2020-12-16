@@ -10,6 +10,7 @@ use App\Repository\BidHistoryRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+use function dd;
 use function redirect;
 
 class BidHistoryController extends Controller

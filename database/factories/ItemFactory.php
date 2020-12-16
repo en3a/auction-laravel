@@ -32,6 +32,7 @@ class ItemFactory extends Factory
             'minimal_bid' => random_int(5, 100),
             'total_bids'  => 0,
             'thumbnail'   => '',
+            'active'      => Item::ACTIVE,
             'expires_at'  => Carbon::now()->addWeek()
         ];
     }
