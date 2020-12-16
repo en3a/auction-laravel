@@ -1,60 +1,153 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="https://github.com/en3a/auction-laravel/actions"><img src="https://github.com/en3a/auction-laravel/workflows/Laravel Auction CI/badge.svg" alt="Actions"></a>
 </p>
 
-## About Laravel
+## Objective / Requirements / Task Description
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Your task is to create a web auction application for an antique items seller. The application will allow users to bid on
+antique items displayed in the site and admin users to set up items for auction. Product management and auctioning are
+within the scope of the application; shopping cart and payment integration are not.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Use PHP / Laravel on the Back-end and React.js on the Front End.
+- Use Database engine of your choice.
+- Implement form submission validation on the Front End side.
+- Implement validation on the Back End side for the creation and modification of items.
+- Use git to commit your work.
+- Function body should not exceed 30 LOC.
+- Class should not exceed 200 LOC.
+- Stick to DRY principles.
+- Base your implementation on design patterns.
+- Layout should be responsive and follow UI/UX best practices.
+- Any Image files should be uploaded and shared in a zip file.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+- ***Summary of main features:***
+- Home Page – Item’s listing (preferably in gallery view)
+- Item Detail Page with Item bidding history
+- Bid Now functionality
+- Auto-bidding functionality
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Server Requirements
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP >= 7.4
+- BCMath PHP Extension
+- Ctype PHP Extension
+- Fileinfo PHP Extension
+- JSON PHP Extension
+- Mbstring PHP Extension
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Tokenizer PHP Extension
+- XML PHP Extension
+- NGINX / APACHE
+- MYSQL / MARIADB
+- COMPOSER
+- DOCKER (optional)
 
-## Laravel Sponsors
+## Installation via Docker (recommended)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+*We can put to use Laravel Sail which will create all the dependencies needed for the application to run correctly.
 
-### Premium Partners
+***You will need docker and docker-compose installed in order to continue with this step***
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+- Clone the repository
+- Install the dependencies
+  ``` composer install ```
+- Build and bring up containers via Laravel Sail (it may take a while the first time)
 
-## Contributing
+  ``` vendor/bin/sail up ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Generate application key
+  ``` vendor/bin/sail artisan key:generate ```
 
-## Code of Conduct
+- Create database tables and seeder
+  ``` vendor/bin/sail artisan migrate:fresh --seed```
+- Create storage symlink
+  ``` vendor/bin/sail artisan storage:link ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Install / Compile assets (even though assets are already built. You will need nodejs and npm for this)
+  ``` npm install && npm run prod ```
 
-## Security Vulnerabilities
+- Running queues on background for auto-bid feature (used to solve concurrency issues)
+  ``` vendor/bin/sail artisan queue:work ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Local Installation
+
+- Clone the repository
+- Create the environment file
+  ``` cp .env.example .env ```
+  
+- Change environment variables as follows
+  
+    ``` DB_HOST=127.0.0.1 ```
+  
+    ``` MEMCACHED_HOST=127.0.0.1 ```
+  
+    ``` REDIS_HOST=127.0.0.1 ```
+  
+- ***Configure the .env file by inserting app name, database credentials***
+- Install the dependencies
+  ``` composer install ```
+- Generate application key
+  ``` php artisan key:generate ```
+- Create database tables
+  ``` php artisan migrate:fresh ```
+- Create storage symlink
+  ``` php artisan storage:link ```
+- Or you can use the one-liner
+
+``` composer install && php artisan key:generate && php artisan migrate:fresh && php artisan storage:link ```
+
+- On production dependecies can be optimized by running
+  ``` composer install --optimize-autoloader --no-dev ```
+
+- Install / Compile assets (even though assets are already built. You will need nodejs and npm for this)
+  ``` npm install && npm run prod ```
+
+- Running queues on background for auto-bid feature (used to solve concurrency issues)
+  ``` php artisan queue:work ```
+
+## Github Actions
+
+Github actions are configured as pipelines for CI in order to automatically run the tests for the project. They are
+triggered by pushing to master or creating a MR (merge request) to master.
+
+Latest Status:
+
+<a href="https://github.com/en3a/auction-laravel/actions"><img src="https://github.com/en3a/auction-laravel/workflows/Laravel Auction CI/badge.svg" alt="Actions"></a>
+
+## Platform Usage
+
+### Users and authentication
+Platform provides only authentication functionality and has two predefined user accounts.
+
+***username/password***
+
+      - user1/password
+      - user2/password
+
+### Overall usage
+Items are already configured on seeder and after logging in to the platform a user can see a paginated
+list of items.
+
+Users can bid on items, can configure auto-bid on settings page for setting up the limit and also can activate
+auto-bid for specific items.
+
+Auto-bid feature needs queues in order to work. The queue driver for this case is database but we can speed it up by
+using a faster key:pair database like Redis. Queues makes sure that the job is dispatched one by one and in order so 
+the jobs do not "race" for execution.
+
+## Running tests
+
+``` phpunit ```
+**OR**
+``` /vendor/bin/phpunit ```
+
+## Contact
+
+For any questions feel free to contact @ ***eneadede96@gmail.com*** OR ***enea.dede@elitestudio.io***
 
 ## License
 
