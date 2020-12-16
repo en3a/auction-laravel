@@ -23,6 +23,9 @@
                                 @if(request('page'))
                                     <input type="hidden" name="page" value="{{ request('page') }}">
                                 @endif
+                                @if(request('search_term'))
+                                    <input type="hidden" name="search_term" value="{{ request('search_term') }}">
+                                @endif
                                 <button class="btn-transparent" type="submit">
                                     Price &nbsp;
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
