@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BidBot extends Model
 {
-    use Uuids;
+    use Uuids, HasFactory;
 
     protected $guarded = [];
 
