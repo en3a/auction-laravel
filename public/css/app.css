@@ -10942,7 +10942,7 @@ input[type=number] {
   border-radius: 0 !important;
   background-color: #304059 !important;
   border-color: #304059 !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: 500;
   padding: 11px;
   letter-spacing: 1px;
@@ -11087,6 +11087,11 @@ input.form-control.search-input {
   .cover__image .cover__desc h4 {
     margin-top: 0;
     font-size: 22px;
+  }
+
+  .search-wrapper.w-100.pl-5.pr-5 {
+    padding: 0 !important;
+    margin: 10px 0;
   }
 }
 

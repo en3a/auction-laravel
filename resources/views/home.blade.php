@@ -37,7 +37,7 @@
 
                 <div class="row items-row">
                     @forelse($items as $item)
-                        <div class="col-lg-3 col-sm-12 mb-5">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-5">
                             <div class="card">
                                 <img class="card-img-top item-thumbnail" src="{{ asset($item->thumbnail) }}"
                                      alt="{{ $item->name }}">
