@@ -64,7 +64,7 @@ class ItemRepository extends BaseRepository
     public function getBids(Item $item)
     {
         try {
-            return $item->with('bids')
+            return $item->bids()
                         ->orderBy('created_at', 'desc')
                         ->get();
         } catch (Exception $exception) {

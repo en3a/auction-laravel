@@ -3,11 +3,13 @@
 namespace Tests\Feature;
 
 use App\Exceptions\GeneralException;
+use App\Jobs\TriggerAutoBid;
 use App\Models\BidHistory;
 use App\Models\Item;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Bus;
 use Tests\TestCase;
 
 use function auth;
@@ -30,6 +32,8 @@ class BidHistoryControllerTest extends TestCase
 
     public function testUserCanSubmitBid()
     {
+        Bus::fake();
+
         // authenticate user
         $this->authenticateUser();
         // create item
@@ -44,6 +48,8 @@ class BidHistoryControllerTest extends TestCase
             'item_id'    => $item->id,
             'bid_amount' => $item->minimal_bid
         ]);
+        // Assert that a job was dispatched
+        Bus::assertDispatched(TriggerAutoBid::class);
     }
 
     public function testCannotBidIfItemNotActiveOrExpired()

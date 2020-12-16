@@ -12,6 +12,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Tests\TestCase;
 
 use function auth;
+use function dd;
 use function route;
 use function var_dump;
 
@@ -32,6 +33,36 @@ class ItemControllerTest extends TestCase
         $response->assertViewIs('home');
         $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()->getData()['items']);
         $this->assertEquals(20, $response->getOriginalContent()->getData()['items']->total());
+    }
+
+    public function testListPaginatedItemsSorted()
+    {
+        // authenticate user
+        $this->authenticateUser();
+        // create items
+        Item::factory(20)->create();
+
+        $response = $this->get(route('dashboard', ['order' => 'desc']));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('home');
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()->getData()['items']);
+        $this->assertEquals(20, $response->getOriginalContent()->getData()['items']->total());
+    }
+
+    public function testListPaginatedItemsWhenSearchedForSpecificItem()
+    {
+        // authenticate user
+        $this->authenticateUser();
+        // create items
+        Item::factory(20)->create();
+
+        $response = $this->get(route('dashboard', ['search_term' => 'test me']));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('home');
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent()->getData()['items']);
+        $this->assertEquals(0, $response->getOriginalContent()->getData()['items']->total());
     }
 
     public function testShowDetailsPageOfSelectedItem()
