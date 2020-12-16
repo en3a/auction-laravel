@@ -67,7 +67,8 @@
                                                 Total Bids: {{ $item->bids()->count() }}
                                             </span>
                                     </p>
-                                    <a href="{{ route('show', ['item' => $item->id]) }}" class="w-100 btn btn-primary">Bid
+                                    <a href="{{ route('item.show', ['item' => $item->id]) }}"
+                                       class="w-100 btn btn-primary">Bid
                                         Now</a>
                                 </div>
                             </div>
@@ -77,7 +78,7 @@
                     @endforelse
                 </div>
 
-                {{ $items->appends(request()->except('page'))->links() }}
+                    {{ $items->appends(request()->except('page'))->links() }}
             </div>
         </div>
 @endsection

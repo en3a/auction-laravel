@@ -25,7 +25,7 @@ Route::get('/', function ()
 Route::group(['middleware' => 'auth'], function ()
 {
     Route::get('/dashboard', [ItemController::class, 'index'])->name('dashboard');
-    Route::get('/item/{item}', [ItemController::class, 'show'])->name('show');
+    Route::get('/item/{item}', [ItemController::class, 'show'])->name('item.show');
     Route::post('/submit/bid/{item}', [BidHistoryController::class, 'submitBid'])->name('submitBid');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
     Route::put('/settings/save', [SettingController::class, 'store'])->name('saveSettings');
