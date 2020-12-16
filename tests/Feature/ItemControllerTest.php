@@ -19,22 +19,12 @@ class ItemControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Helper to authenticate user
-     */
-    private function authenticateUser()
-    {
-        $user = User::factory()->create();
-
-        $this->actingAs($user);
-    }
-
     public function testListPaginatedItems()
     {
         // authenticate user
         $this->authenticateUser();
         // create items
-        $items = Item::factory(20)->create();
+        Item::factory(20)->create();
 
         $response = $this->get(route('dashboard'));
 
